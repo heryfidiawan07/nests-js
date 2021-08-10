@@ -4,7 +4,7 @@ import { RoleUserService } from '../roleUser/roleUser.service'
 import { User } from './user.entity'
 import { UserRequest } from './user.dto'
 import { v4 as uuidv4 } from 'uuid'
-import { bcrypt } from 'bcrypt'
+const bcrypt = require('bcrypt')
 
 
 @Controller('user')
@@ -63,6 +63,7 @@ export class UserController {
 
 		const salt = await bcrypt.genSalt(10)
 		const hash = await bcrypt.hash(valid['password'], salt)
+		// const hash = await bcrypt.hash(valid['password'], 10)
 		valid['password'] = hash
 
 		try{
