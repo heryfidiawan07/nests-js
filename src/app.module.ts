@@ -17,6 +17,9 @@ import { RoleController } from './role/role.controller';
 import { RoleUser } from './roleUser/roleUser.entity';
 import { RoleUserService } from './roleUser/roleUser.service';
 
+import { LoginController } from './auth/login.controller';
+import { RegisterController } from './auth/register.controller';
+
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -24,7 +27,9 @@ import { RoleUserService } from './roleUser/roleUser.service';
     TypeOrmModule.forFeature([User, Role, RoleUser])
   ],
   controllers: [
-    AppController, 
+    AppController,
+    RegisterController,
+    LoginController, 
     UserController,
     RoleController
   ],

@@ -1,7 +1,6 @@
 import { Controller, UsePipes, ValidationPipe, Param, Body, Get, Post, Put, Patch, Delete } from '@nestjs/common'
 import { RoleService } from './role.service'
 import { RoleUserService } from '../roleUser/roleUser.service'
-import { Role } from './role.entity'
 import { RoleRequest } from './role.dto'
 import { v4 as uuidv4 } from 'uuid'
 

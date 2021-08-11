@@ -1,7 +1,6 @@
 import { Controller, UsePipes, ValidationPipe, Param, Body, Get, Post, Put, Patch, Delete } from '@nestjs/common'
 import { UserService } from './user.service'
 import { RoleUserService } from '../roleUser/roleUser.service'
-import { User } from './user.entity'
 import { UserRequest } from './user.dto'
 import { v4 as uuidv4 } from 'uuid'
 const bcrypt = require('bcrypt')

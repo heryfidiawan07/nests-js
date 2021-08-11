@@ -18,6 +18,10 @@ export class UserService {
 	    return this.user.findOne(id, { relations: ['roles'] });
 	}
 
+	async where(data: Object): Promise<User> {
+	    return this.user.findOne({ where: data });
+	}
+
 	async delete(id: string): Promise<void> {
 		await this.user.delete(id);
 	}
