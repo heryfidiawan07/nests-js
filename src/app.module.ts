@@ -6,6 +6,15 @@ import { AppService } from './app.service';
 import { database } from './config/database';
 import { AuthMiddleware } from './middleware/auth';
 
+import { Parent } from './parent/parent.entity';
+import { ParentService } from './parent/parent.service';
+
+import { Menu } from './menu/menu.entity';
+import { MenuService } from './menu/menu.service';
+
+import { Permission } from './permission/permission.entity';
+import { PermissionService } from './permission/permission.service'
+
 import { User } from './user/user.entity';
 import { UserService } from './user/user.service';
 import { UserController } from './user/user.controller';
@@ -24,7 +33,7 @@ import { RegisterController } from './auth/register.controller';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot(database),
-    TypeOrmModule.forFeature([User, Role, RoleUser])
+    TypeOrmModule.forFeature([Parent, Menu, Permission, User, Role, RoleUser])
   ],
   controllers: [
     AppController,
@@ -34,7 +43,10 @@ import { RegisterController } from './auth/register.controller';
     RoleController
   ],
   providers: [
-    AppService, 
+    AppService,
+    ParentService,
+    MenuService,
+    PermissionService,
     UserService,
     RoleService,
     RoleUserService

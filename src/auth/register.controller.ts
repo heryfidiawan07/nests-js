@@ -16,7 +16,7 @@ export class RegisterController {
 	@Post()
 	@UsePipes(new ValidationPipe({ transform: true }))
 	async post(@Body() valid: RegisterRequest) {
-		const user = await this.user.where({'email': valid['email']})
+		const user = await this.user.whereFirst({'email': valid['email']})
 		// console.log('user',user)
 		// console.log('valid',valid)
 		if(user) {

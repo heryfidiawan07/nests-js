@@ -7,32 +7,36 @@ import { User } from './user.entity';
 export class UserService {
 
 	constructor(
-		@InjectRepository(User) private readonly user: Repository<User>,
+		@InjectRepository(User) private readonly model: Repository<User>,
 	) {}
 
 	async all(): Promise<User[]> {
-		return this.user.find({ relations: ['roles'] });
+		return this.model.find({ relations: ['roles'] });
 	}
 
 	async first(id: string): Promise<User> {
-	    return this.user.findOne(id, { relations: ['roles'] });
+	    return this.model.findOne(id, { relations: ['roles'] });
 	}
 
-	async where(data: Object): Promise<User> {
-	    return this.user.findOne({ where: data });
+	async whereFirst(data: Object): Promise<User> {
+	    return this.model.findOne({ where: data });
+	}
+
+	async where(data: Object): Promise<User[]> {
+	    return this.model.find({ where: data });
 	}
 
 	async delete(id: string): Promise<void> {
-		await this.user.delete(id);
+		await this.model.delete(id);
 	}
 
 	async post(body: Object): Promise<void> {
-		await this.user.save(body);
+		await this.model.save(body);
 	}
 
 	async put(body: Object): Promise<void> {
 		const id = body['id']
 		delete body['id']
-		await this.user.update(id, body);
+		await this.model.update(id, body);
 	}
 }

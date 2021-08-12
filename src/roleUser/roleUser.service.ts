@@ -7,15 +7,23 @@ import { RoleUser } from './roleUser.entity';
 export class RoleUserService {
 
 	constructor(
-		@InjectRepository(RoleUser) private readonly roleUser: Repository<RoleUser>
+		@InjectRepository(RoleUser) private readonly model: Repository<RoleUser>
 	) {}
 
 	async delete(fk: string): Promise<void> {
-		await this.roleUser.delete(fk);
+		await this.model.delete(fk);
 	}
 
 	async post(body: Object): Promise<void> {
-		await this.roleUser.save(body);
+		await this.model.save(body);
+	}
+
+	async whereFirst(data: Object): Promise<RoleUser> {
+	    return this.model.findOne({ where: data });
+	}
+
+	async where(data: Object): Promise<RoleUser[]> {
+	    return this.model.find({ where: data });
 	}
 
 }
