@@ -16,9 +16,9 @@ export class RoleController {
 	@Get()
 	async index() {
 		try{
-			return {status: true, result: await this.role.all(), message: true}
+			return {status: true, data: await this.role.all(), message: true}
 		}catch(error) {
-			return {status: false, result: false, message: error.detail}
+			return {status: false, data: null, message: error.detail}
 		}
 	}
 
@@ -26,9 +26,9 @@ export class RoleController {
 	async show(@Param('id') id: string) {
 		// console.log('Controller show :id',id)
 		try{
-			return {status: true, result: await this.role.first(id), message: true}
+			return {status: true, data: await this.role.first(id), message: true}
 		}catch(error) {
-			return {status: false, result: false, message: error.detail}
+			return {status: false, data: null, message: error.detail}
 		}
 	}
 
@@ -38,9 +38,9 @@ export class RoleController {
 		try{
 			await this.role.delete(id)
 			await this.roleUser.delete(id)
-			return {status: true, result: true, message: 'Delete success'}
+			return {status: true, data: true, message: 'Delete success'}
 		}catch(error) {
-			return {status: false, result: false, message: error.detail}
+			return {status: false, data: null, message: error.detail}
 		}
 	}
 	
@@ -54,9 +54,9 @@ export class RoleController {
 			// console.log('Controller valid',valid)
 			await this.role.post(valid)
 
-			return {status: true, result: valid, message: true}
+			return {status: true, data: valid, message: true}
 		}catch(error) {
-			return {status: false, result: valid, message: error.detail}
+			return {status: false, data: valid, message: error.detail}
 		}
 	}
 
@@ -69,9 +69,9 @@ export class RoleController {
 			// console.log('Controller valid',valid)
 			await this.role.put(valid)
 
-			return {status: true, result: valid, message: true}
+			return {status: true, data: valid, message: true}
 		}catch(error) {
-			return {status: false, result: valid, message: error.detail}
+			return {status: false, data: valid, message: error.detail}
 		}
 	}
 }

@@ -17,9 +17,9 @@ export class UserController {
 	@Get()
 	async index() {
 		try{
-			return {status: true, result: await this.user.all(), message: true}
+			return {status: true, data: await this.user.all(), message: true}
 		}catch(error) {
-			return {status: false, result: false, message: error.detail}
+			return {status: false, data: null, message: error.detail}
 		}
 	}
 
@@ -27,9 +27,9 @@ export class UserController {
 	async show(@Param('id') id: string) {
 		// console.log('Controller show :id',id)
 		try{
-			return {status: true, result: await this.user.first(id), message: true}
+			return {status: true, data: await this.user.first(id), message: true}
 		}catch(error) {
-			return {status: false, result: false, message: error.detail}
+			return {status: false, data: null, message: error.detail}
 		}
 	}
 
@@ -39,9 +39,9 @@ export class UserController {
 		try{
 			await this.user.delete(id)
 			await this.roleUser.delete(id)
-			return {status: true, result: true, message: 'Delete success'}
+			return {status: true, data: true, message: 'Delete success'}
 		}catch(error) {
-			return {status: false, result: false, message: error.detail}
+			return {status: false, data: null, message: error.detail}
 		}
 	}
 	
@@ -70,9 +70,9 @@ export class UserController {
 			await this.user.post(valid)
 			await this.roleUser.post(roles)
 
-			return {status: true, result: valid, message: true}
+			return {status: true, data: valid, message: true}
 		}catch(error) {
-			return {status: false, result: valid, message: error.detail}
+			return {status: false, data: valid, message: error.detail}
 		}
 	}
 
@@ -95,9 +95,9 @@ export class UserController {
 			await this.roleUser.delete(id)
 			await this.roleUser.post(roles)
 
-			return {status: true, result: valid, message: true}
+			return {status: true, data: valid, message: true}
 		}catch(error) {
-			return {status: false, result: valid, message: error.detail}
+			return {status: false, data: valid, message: error.detail}
 		}
 	}
 }
