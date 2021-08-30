@@ -1,17 +1,14 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany, JoinTable, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, ManyToOne } from 'typeorm';
 import { Parent } from "../parent/parent.entity";
 import { Action } from "../action/action.entity";
 
-@Entity('menus')
+@Entity('menu')
 export class Menu {
 	@PrimaryGeneratedColumn('uuid')
 	id: string;
 
 	@Column()
 	name: string;
-
-	@Column()
-	parent_id: string;
 
 	@Column()
 	sidebarUrl: string;
@@ -22,11 +19,12 @@ export class Menu {
 	@Column()
 	route: string;
 
-	@OneToOne(() => Parent)
-    @JoinColumn({name: 'parent_id', referencedColumnName: 'id',})
+	@Column()
+	parentId: string;
+
+  	@ManyToOne(() => Parent, parent => parent.menus)
     parent: Parent;
 
-	@OneToMany(type => Action, action => action)
-	@JoinColumn({name: 'menu_id', referencedColumnName: 'id',})
-  	actions: Action[];
+    @OneToMany(() => Action, action => action.menu)
+    actions: Action[];
 }

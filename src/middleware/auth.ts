@@ -53,7 +53,7 @@ export class AuthMiddleware implements NestMiddleware {
 
             const verified = await jwt.verify(Authorization, process.env.JWT_SECRET)
             // console.log('verified',verified)
-            const roleUser = await this.roleUser.where({user_id: verified._id})
+            const roleUser = await this.roleUser.where({userId: verified._id})
             // console.log('roleUser',roleUser)
             if(roleUser.length < 1) {
                 return res.send({status: false, result: false, message: 'Route access denied !'})
@@ -62,7 +62,7 @@ export class AuthMiddleware implements NestMiddleware {
             // get role by user sign in
             let authRole = []
             await roleUser.forEach(val => {
-                authRole.push({role_id: val.role_id})
+                authRole.push({roleId: val.roleId})
             })
             // console.log('authRole',authRole)
 

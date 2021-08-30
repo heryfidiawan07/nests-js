@@ -1,6 +1,7 @@
 import { Controller, UsePipes, ValidationPipe, Param, Body, Get, Post, Put, Patch, Delete } from '@nestjs/common'
 import { RoleService } from './role.service'
 import { RoleUserService } from '../roleUser/roleUser.service'
+import { PermissionService } from '../permission/permission.service'
 import { RoleRequest } from './role.dto'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -10,7 +11,8 @@ export class RoleController {
 
 	constructor(
 		private role: RoleService,
-		private roleUser: RoleUserService
+		private roleUser: RoleUserService,
+		private permission: PermissionService
 	) {}
 
 	@Get()
@@ -49,11 +51,13 @@ export class RoleController {
 	@UsePipes(new ValidationPipe({ transform: true }))
 	async post(@Body() valid: RoleRequest) {
 		valid['id'] = uuidv4()
+		const permissions = valid['permissions']
+		delete valid['permissions']
 
 		try{
 			// console.log('Controller valid',valid)
 			await this.role.post(valid)
-
+			await this.permission.post(permissions)
 			return {status: true, data: valid, message: true}
 		}catch(error) {
 			return {status: false, data: valid, message: error.detail}
@@ -63,12 +67,14 @@ export class RoleController {
 	@Put(':id')
 	async put(@Param('id') id: string, @Body() valid: RoleRequest) {
 		// console.log('Controller put :id',id)
-		valid['id'] = id
+		const permissions = valid['permissions']
+		delete valid['permissions']
 
 		try{
 			// console.log('Controller valid',valid)
+			await this.permission.delete(id)
 			await this.role.put(valid)
-
+			await this.permission.post(permissions)
 			return {status: true, data: valid, message: true}
 		}catch(error) {
 			return {status: false, data: valid, message: error.detail}

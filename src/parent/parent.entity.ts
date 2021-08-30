@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, JoinColumn } from 'typeorm';
 import { Menu } from "../menu/menu.entity";
 
-@Entity('parents')
+@Entity('parent')
 export class Parent {
 	@PrimaryGeneratedColumn('uuid')
 	id: string;
@@ -12,11 +12,6 @@ export class Parent {
 	@Column()
 	icon: string;
 
-  	// @OneToMany(() => Menu)
-   //  @JoinColumn({name: 'menu_id', referencedColumnName: 'id',})
-   //  menus: Menu;
-
-	@OneToMany(type => Menu, menu => menu.parent)
-	@JoinColumn({name: 'parent_id', referencedColumnName: 'id',})
-	menus: Menu[];
+	@OneToMany(() => Menu, menu => menu.parent)
+    menus: Menu[];
 }

@@ -1,16 +1,17 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Menu } from "../menu/menu.entity";
 
-@Entity('actions')
+@Entity('action')
 export class Action {
 	@PrimaryGeneratedColumn('uuid')
 	id: string;
-
-	@Column()
-	menu_id: string;
 
 	@Column()
 	name: string;
 
 	@Column()
 	alias: string;
+
+	@ManyToOne(() => Menu, menu => menu.actions)
+    menu: Menu;
 }

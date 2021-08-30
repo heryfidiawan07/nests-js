@@ -1,10 +1,10 @@
 import { Entity, PrimaryColumn, Column } from 'typeorm';
 
-@Entity('role_user')
+@Entity('user_roles_role')
 export class RoleUser {
 	@PrimaryColumn()
-	user_id: string;
+	userId: string;
 
 	@Column()
-	role_id: string;
+	roleId: string;
 }

@@ -36,7 +36,7 @@ export class LoginController {
 		if (!password) return {status: false, result: false, message: 'Email / password failed !'}
 		delete user.password
 
-        const roleUser = await this.roleUser.where({user_id: user.id})
+        const roleUser = await this.roleUser.where({userId: user.id})
         // console.log('roleUser',roleUser)
         if(roleUser.length < 1) {
             return {status: false, result: false, message: "User doesn't have role !"}
@@ -45,7 +45,7 @@ export class LoginController {
         // get role by user sign in
         let authRole = []
         await roleUser.forEach(val => {
-            authRole.push({role_id: val.role_id})
+            authRole.push({roleId: val.roleId})
         })
         // console.log('authRole',authRole)
 
@@ -55,7 +55,7 @@ export class LoginController {
         // get menu by user sign in
         let authMenu = []
         await permissions.forEach(val => {
-            authMenu.push({id: val.menu_id})
+            authMenu.push({id: val.menuId})
         })
         console.log('authMenu',authMenu)
 
@@ -64,8 +64,8 @@ export class LoginController {
 
         let parentId = []
         await menus.forEach(val => {
-        	if(val.parent_id) {
-            	parentId.push({id: val.parent_id})
+        	if(val.parentId) {
+            	parentId.push({id: val.parentId})
         	}
         })
         console.log('parentId',parentId)

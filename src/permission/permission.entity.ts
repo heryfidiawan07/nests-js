@@ -1,19 +1,30 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany, JoinTable } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Role } from "../role/role.entity";
+import { Menu } from "../menu/menu.entity";
+import { Action } from "../action/action.entity";
 
-@Entity('permissions')
+@Entity('permission')
 export class Permission {
 	@PrimaryGeneratedColumn('uuid')
 	id: string;
 	
-	@Column()
-	role_id: string;
+	// @ManyToOne(() => Role, role => role.permissions)
+	// role: Role;
+
+	// @ManyToOne(() => Menu, menu => menu.permissions)
+	// menu: Menu;
+
+	// @ManyToOne(() => Action, action => action.permissions)
+	// action: Action;
 
 	@Column()
-	menu_id: string;
+	roleId: string;
 
 	@Column()
-	action_id: string;
+	menuId: string;
+
+	@Column()
+	actionId: string;
 
 	@Column()
 	action: string;

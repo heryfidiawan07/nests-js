@@ -25,4 +25,12 @@ export class PermissionService {
 	async where(data: Object): Promise<Permission[]> {
 	    return this.model.find({ where: data });
 	}
+
+	async post(body: Object): Promise<void> {
+		await this.model.save(body);
+	}
+
+	async delete(fk: string): Promise<void> {
+		await this.model.delete(fk);
+	}
 }

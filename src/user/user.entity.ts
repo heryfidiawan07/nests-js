@@ -1,9 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToMany, JoinTable } from 'typeorm';
-import { Role } from "../role/role.entity";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToMany, JoinTable } from 'typeorm'
+import { Role } from "../role/role.entity"
 
-@Entity('users')
+@Entity('user')
 export class User {
-	@PrimaryGeneratedColumn('uuid')
+	@PrimaryGeneratedColumn("uuid")
 	id: string;
 
 	@Column()
@@ -16,7 +16,7 @@ export class User {
 	})
 	email: string;
 
-	@Column()
+	@Column("varchar", { length: 200 })
 	password: string;
 
 	@CreateDateColumn()
@@ -25,17 +25,9 @@ export class User {
 	@UpdateDateColumn()
 	updated_at: string;
 
-	@ManyToMany(type => Role, role => role.users)
-	@JoinTable({
-    	name: 'role_user',
-	    joinColumn: {
-	      name: 'user_id',
-	      referencedColumnName: 'id',
-	    },
-	    inverseJoinColumn: {
-	      name: 'role_id',
-	      referencedColumnName: 'id',
-	    },
-	})
-  	roles: Role[]
+	@ManyToMany(() => Role, {
+        eager: true
+    })
+    @JoinTable()
+    roles: Role[];
 }
